@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>DICOM Download</title>
+	<script src="Script/jquery-3.3.1.min.js"></script>
+	<script src="Script/jquery.form.min.js"></script>
+	<script type="text/javascript">
+		function checkName(file_Name){
+			var validFormat = new Array(".dcm");
+
+			var fileExt = file_Name.value;
+			fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
+			if(validFormat.indexOf(fileExt) < 0){
+				alert("Your file name is valid. Please reset your DICOM name.");
+				send_file.value = null;
+				return false;
+			}
+			else return true;
+		}
+	</script>
+</head>
+<body>
+	<h2>JPG2DCM</h2>
+	<form id="dcmDownload" action="http://localhost:3030/download" method="GET">
+		自訂檔名 : <input type="text" name="dcmName" placeholder="XXX.dcm" onchange="checkName(this);"><br>
+		<input type="submit" name="dcmload" value="Download" />
+	</form>
+	<form method="get" action="http://localhost:3030/">
+		<button type="submit">Back</button>
+	</form>
+	<a href="http://localhost:3030/" target="_blank">
+		<button>HomE</button>
+	</a>
+</body>
+</html>

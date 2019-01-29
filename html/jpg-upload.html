@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Convert Image to DICOM format</title>
+	<script src="Script/jquery-3.3.1.min.js"></script>
+	<script src="Script/jquery.form.min.js"></script>
+	
+</head>
+<body>
+	<h2>File upload sucessfully!</h2>
+	<form id="imgConvert" action="http://localhost:3030/jpg-upload" method="GET">
+		PatientID : <input type="text" name="PatientID"><br>
+		PatientName : <input type="text" name="PatientName"><br>
+		PatientBirthday : <input type="text" name="PatientBirthday"><br>
+		PatientSex : 
+		<select name="PatientSex">
+			<option value="male">Male</option>
+			<option value="female">Female</option>
+		</select><br>
+		<input type="submit" name="cvtimg" id="btnConvert" value="Convert" />
+	</form>
+</body>
+</html>

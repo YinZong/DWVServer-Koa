@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Upload image to server using NODE JS</title>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="Script/jquery.form.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="Script/index.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/index.css" />
+	<script type="text/javascript">
+		window.onload = function(){
+			// Input Study Instance UID 
+			var modal = document.getElementById('optLayer');
+			var btn = document.getElementById('layerBtn');
+			var span = document.getElementsByClassName('close')[0];
+
+			// Input Study Instance UID 
+			btn.onclick = function(){
+				modal.style.display = "block";
+			}
+			span.onclick = function(){
+				modal.style.display = "none";
+			}
+
+			window.onclick = function(event){
+				if(event.target == modal){
+					modal.style.display = "none";
+				}
+			}
+		}
+
+	</script>
+</head>
+<body>
+	<h1>JPG2DCM</h1>
+	<form id="jpgUploader" enctype="multipart/form-data" action="jpg-upload/" method="post" onsubmit="return checkform1()">
+		<input type="file" id="selectjpg" name="jpgUploader" accept=".jpg, .jpeg" onchange="checkjpg(this);" />
+		<input type="submit" name="submit2" id="btnSubmit1" value="JPG Upload" />
+	</form><br>
+
+	<h1>DCM2JPG</h1>
+	<form id="dcmUploader" enctype="multipart/form-data" action="dcm-download/" method="post" onsubmit="return checkform2()">
+		<input type="file" id="selectdcm" name="DcmUploader" accept=".dcm" onchange="checkdcm(this);" />
+		<input type="submit" name="submit3" id="btnSubmit2" value="DICOM Convert" />
+	</form><br>
+
+	<h1>Convert and upload api</h1>
+		<form id="imageUpload" enctype="multipart/form-data" action="PACS/dcm-upload-with-annotation" method="post" onsubmit="return checkform1()">
+		<input type="file" id="selectjpg" name="ImgUploader" accept=".jpg, .jpeg" onchange="checkjpg(this);" />
+		<textarea id="textarea" name="tagJson" >{"NativeDicomModel":{"$":{"xml:space":"preserve"},"DicomAttribute":[{"$":{"keyword":"PatientID","tag":"00100020","vr":"LO"},"Value":[{"_":"1112","$":{"number":"1"}}]},{"$":{"keyword":"PatientName","tag":"00100010","vr":"PN"},"Value":[{"_":"Jeremy","$":{"number":"1"}}]}]}}</textarea>
+
+		IP Address:<input type="text" name="ipAddr" value="172.24.11.210"><br>
+		Port:<input type="text" name="Port" value="11112"><br>
+		Title:<input type="text" name="Title" value="DCM4CHEE"><br>
+
+		<input type="submit" name="submit4" id="btnSubmit3" value="JPG Upload" />
+	</form><br>
+
+	<h1>Upload dcm to PACS server</h1>
+	<form id="dicomUploader" enctype="multipart/form-data" action="PACS/dcm-upload" method="post" onsubmit="return checkform2()">
+		<input type="file" id="selectdcm" name="DicomUploader" accept=".dcm" onchange="checkdcm(this);" />
+		IP Address:<input type="text" name="ipAddr" value="172.24.11.210"><br>
+		Port:<input type="text" name="Port" value="11112"><br>
+		Title:<input type="text" name="Title" value="DCM4CHEE"><br>
+		<input type="submit" name="submit6" id="btnSubmit6" value="UPLOAD" />
+	</form><br>
+
+	<h1>Retrieve Objects from PACS Server</h1>
+	<button id="layerBtn">Retrieve Object</button>
+	<div id="optLayer" class="modal">
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<form style="font-size: 18px" id="retrieveObject" action="Connect-Server/retrieve/" method="post">
+				IP Address:<input type="text" name="ipAddr" value="210.200.13.164"><br>
+				Port:<input type="text" name="Port" value="11112"><br>
+				Title:<input type="text" name="Title" value="DCM4CHEE"><br>
+				<p class="hint-head">Please Enter UID</p><br>
+				<p class="study-input">Study Instanse UID 
+					:<input type="text" name="Study1" class="text-input" maxlength="10" value="1">
+					.<input type="text" name="Study2" class="text-input" maxlength="10" value="2">
+					.<input type="text" name="Study3" class="text-input" maxlength="10" value="392">
+					.<input type="text" name="Study4" class="text-input" maxlength="10" value="200036">
+					.<input type="text" name="Study5" class="text-input" maxlength="10" value="9116">
+					.<input type="text" name="Study6" class="text-input" maxlength="10" value="2">
+					.<input type="text" name="Study7" class="text-input" maxlength="10" value="5">
+					.<input type="text" name="Study8" class="text-input" maxlength="10" value="1">
+					.<input type="text" name="Study9" class="text-input" maxlength="10" value="48">
+					.<input type="text" name="Study10" class="text-input" maxlength="10" value="1221418831">
+					.<input type="text" name="Study11" class="text-input" maxlength="10" value="1535674615">
+					.<input type="text" name="Study12" class="text-input" maxlength="10" value="810818">
+				</p>
+				<p class="series-input">Series Instanse UID 
+					:<input type="text" name="Series1" class="text-input" maxlength="10" value="1">
+					.<input type="text" name="Series2" class="text-input" maxlength="10" value="2">
+					.<input type="text" name="Series3" class="text-input" maxlength="10" value="392">
+					.<input type="text" name="Series4" class="text-input" maxlength="10" value="200036">
+					.<input type="text" name="Series5" class="text-input" maxlength="10" value="9116">
+					.<input type="text" name="Series6" class="text-input" maxlength="10" value="2">
+					.<input type="text" name="Series7" class="text-input" maxlength="10" value="5">
+					.<input type="text" name="Series8" class="text-input" maxlength="10" value="1">
+					.<input type="text" name="Series9" class="text-input" maxlength="10" value="48">
+					.<input type="text" name="Series10" class="text-input" maxlength="10" value="1221418831">
+					.<input type="text" name="Series11" class="text-input" maxlength="10" value="1535675190">
+					.<input type="text" name="Series12" class="text-input" maxlength="10" value="333820">
+				</p>
+				<p class="instance-input">SOP Instanse UID 
+					:<input type="text" name="Instance1" class="text-input" maxlength="10">
+					.<input type="text" name="Instance2" class="text-input" maxlength="10">
+					.<input type="text" name="Instance3" class="text-input" maxlength="10">
+					.<input type="text" name="Instance4" class="text-input" maxlength="10">
+					.<input type="text" name="Instance5" class="text-input" maxlength="10">
+					.<input type="text" name="Instance6" class="text-input" maxlength="10">
+					.<input type="text" name="Instance7" class="text-input" maxlength="10">
+					.<input type="text" name="Instance8" class="text-input" maxlength="10">
+					.<input type="text" name="Instance9" class="text-input" maxlength="10">
+					.<input type="text" name="Instance10" class="text-input" maxlength="10">
+					.<input type="text" name="Instance11" class="text-input" maxlength="10">
+					.<input type="text" name="Instance12" class="text-input" maxlength="10">
+				</p>
+				<input type="submit" name="submit5" Value="Submit">
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>
