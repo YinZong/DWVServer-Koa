@@ -235,8 +235,9 @@ route.post("/PACS/dcm-upload/", dicom_upload.single('DicomUploader'), async (ctx
 		if(ctx.req.file){
 			FILENAME = ctx.req.file.originalname;
 			console.log(FILENAME);
-			var mode = 1;
-			// await tools.storescu(ctx.req.body, FILENAME, FOLDER_NAME, mode);
+			FOLDER_NAME = "";
+			var mode = 2;
+			await tools.storescu(ctx.req.body, FILENAME, FOLDER_NAME, mode);
 			ctx.response.status = 204;
 			ctx.body = 'Check it out';
 		}

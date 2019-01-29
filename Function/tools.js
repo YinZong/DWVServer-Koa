@@ -5,7 +5,7 @@ const child_process = require('child_process');
 
 var parser = new xml2js.Parser();
 var xmlBuilder = new xml2js.Builder();
-const filepath = ["./retrieve/", "./dcmFiles/"];
+const filepath = ["./retrieve/", "./dcmFiles/", "./dcmCache/"];
 const folderPath = ["./Images/", "./dcmCache/"];
 
 //Related parameters
@@ -92,6 +92,7 @@ module.exports = {
 			var pacs_port = formdata.Port;
 			var pacs_title = formdata.Title;
 			return new Promise(function(resolve, reject){
+				// if(FOLDERNAME != undefined){
 				child_process.exec(STORESCU_CMD + pacs_title + '@' + pacs_ip + ':' + pacs_port + ' ' + filepath[MODE] + FOLDERNAME + '/' + FILENAME);
 				console.log('DICOM file uploaded to PACS server.');
 				return resolve();

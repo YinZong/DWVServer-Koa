@@ -4,7 +4,7 @@
     <Value number="1">123</Value>
   </DicomAttribute>
   <DicomAttribute keyword="PatientName" tag="00100010" vr="PN">
-    <Value number="1">Zack</Value>
+    <Value number="1">cc</Value>
   </DicomAttribute>
   <DicomAttribute keyword="PatientBirthDate" tag="00100030" vr="DA">
     <Value number="1"/>
@@ -16,7 +16,7 @@
     <Value number="1">2019/1/29</Value>
   </DicomAttribute>
   <DicomAttribute keyword="StudyTime" tag="00080030" vr="TM">
-    <Value number="1">15:4:26</Value>
+    <Value number="1">16:41:56</Value>
   </DicomAttribute>
   <DicomAttribute keyword="ReferringPhysicianName" tag="00080090" vr="PN"/>
   <DicomAttribute keyword="StudyID" tag="00200010" vr="SH"/>
