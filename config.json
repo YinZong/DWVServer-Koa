@@ -1,0 +1,6 @@
+{
+	"Server" : {
+		"Ip_addr" : "http://localhost:3030/",
+		"tool_Path" : "/home/kevin/dcm4che-5.15.0/bin/"
+	}
+}

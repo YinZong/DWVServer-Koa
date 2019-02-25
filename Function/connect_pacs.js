@@ -1,5 +1,6 @@
 const fs = require("fs");
 const child_process = require("child_process");
+const param = require("./param_config.js");
 const fileFolder = "./retrieve/";
 
 // var url_obj = {"Status" : "The getscu method status.", "Folder_Name" : "The folder name.", "File_Num" : "The image amount.", "File_List" : "The instances url that is a array format.", "Files_Array" : "File array."};
@@ -9,7 +10,8 @@ var typeLayer = ["PATIENT", "STUDY", "SERIES", "IMAGE", "FRAME"];
 var files = fs.readdirSync("./retrieve/");
 
 //Related parameters
-const GETSCU_CMD = '/home/kevin/dcm4che-5.15.0/bin/getscu -L ';
+const GETSCU_CMD = param.get_param("tool_Path") + 'getscu -L ';
+const Ip_addr = param.get_param("Ip_addr");
 
 module.exports = {
 	geturl : async function(form, FOLDERNAME){
@@ -46,7 +48,7 @@ async function getscu_url(body, FOLDERNAME){
 	}
 	if(arr_filename[0] !== undefined){
 		for(i=0;i<arr_filename.length;i++){
-			arr_filename[i] = "http://10.34.41.190:3030/retrieve/" + FOLDERNAME + "/" + arr_filename[i];
+			arr_filename[i] = Ip_addr + "retrieve/" + FOLDERNAME + "/" + arr_filename[i];
 		}
 		url_obj.Status = "OK";
 		url_obj.File_Num = arr_filename.length;
@@ -78,7 +80,7 @@ async function getscu_series(body, FOLDERNAME){
 	}
 	if(arr_dcmfile[0] != undefined){
 		for(i=0;i<arr_dcmfile.length;i++){
-			arr_dcmfile[i] = "http://10.34.41.190:3030/retrieve/" + FOLDERNAME + "/" + arr_dcmfile[i];
+			arr_dcmfile[i] = Ip_addr + "retrieve/" + FOLDERNAME + "/" + arr_dcmfile[i];
 		}
 		url_obj.Status = "OK";
 		url_obj.File_Num = arr_dcmfile.length;

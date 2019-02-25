@@ -2,6 +2,7 @@ const fs = require('fs');
 const xml2js = require('xml2js');
 const {spawn} = require('child_process');
 const child_process = require('child_process');
+const param = require("./param_config.js");
 
 var parser = new xml2js.Parser();
 var xmlBuilder = new xml2js.Builder();
@@ -9,7 +10,7 @@ const filepath = ["./retrieve/", "./dcmFiles/", "./dcmCache/"];
 const folderPath = ["./Images/", "./dcmCache/"];
 
 //Related parameters
-const STORESCU_CMD = '/home/kevin/dcm4che-5.15.0/bin/storescu -c ';
+const STORESCU_CMD = param.get_param("tool_Path") + 'storescu -c ';
 
 module.exports = {
 	resetDir: function(){

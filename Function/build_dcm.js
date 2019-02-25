@@ -10,9 +10,6 @@ var nativeModel = {"NativeDicomModel" : { "$": {"xml:space": "preserve"},"DicomA
 
 const rowTag = {"$": { "keyword": "", "tag": "", "vr": ""},"Value": [{_: "" ,"$": { "number": "1"}}]};
 
-//Related parameters
-const STORESCU_CMD = '/home/kevin/dcm4che-5.15.0/bin/storescu -c ';
-
 module.exports = {
 	parse_json2xml : async function(tagJson){
 		var package_json = await jsonToXml(tagJson);
